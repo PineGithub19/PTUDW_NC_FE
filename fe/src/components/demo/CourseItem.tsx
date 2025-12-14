@@ -1,3 +1,6 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar, faStarHalf } from "@fortawesome/free-solid-svg-icons";
+
 function CourseItem({ data }: { data: any }) {
   return (
     <div className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 mb-6 overflow-hidden">
@@ -29,15 +32,18 @@ function CourseItem({ data }: { data: any }) {
             <p className="text-sm text-gray-700 mb-2">{data.instructor_name}</p>
 
             <div className="flex items-center gap-2 mb-2">
-              <span className="text-orange-600 font-bold">4.7</span>
+              <span className="text-orange-600 font-bold">{data.rating}</span>
               <div className="flex text-orange-500">
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star-half-alt"></i>
+                {[...Array(Math.floor(data.rating))].map((_, index) => (
+                  <FontAwesomeIcon key={index} icon={faStar} />
+                ))}
+                {data.rating % 1 >= 0.5 && (
+                  <FontAwesomeIcon icon={faStarHalf} />
+                )}
               </div>
-              <span className="text-gray-600 text-sm">(337)</span>
+              <span className="text-gray-600 text-sm">
+                ({data.total_reviews})
+              </span>
             </div>
 
             <div className="flex flex-wrap gap-2 text-sm text-gray-600">

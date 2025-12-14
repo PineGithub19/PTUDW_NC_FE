@@ -40,15 +40,29 @@ export const useCreateCourse = () => {
   });
 };
 
-export const useFetchCourses = () => {
+export const useFetchCourses = (page: number | null, size: number) => {
   return useQuery({
-    queryKey: ["courses"],
+    queryKey: ["courses", page],
     queryFn: async () => {
-      const response = await supabase.from("courses").select("*");
-      if (response.error) {
-        throw new Error(response.error.message);
+      if (page === null) {
+        const response = await supabase.from("courses").select("*");
+        if (response.error) {
+          throw new Error(response.error.message);
+        }
+        return response.data;
+      } else {
+        const from = (page as number) * (size as number);
+        const to = from + (size as number) - 1;
+
+        const response = await supabase
+          .from("courses")
+          .select("*", { count: "exact" })
+          .range(from, to);
+        if (response.error) {
+          throw new Error(response.error.message);
+        }
+        return { data: response.data, count: response.count };
       }
-      return response.data;
     },
   });
 };
