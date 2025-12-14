@@ -1,3 +1,20 @@
+# Reference
+
+- [Supabase Backend](https://www.google.com/search?q=supabase+backend+demo&sca_esv=7e4dfe0eab4f43b7&rlz=1C1KNTJ_viVN1027VN1027&ei=Hpw9abCBNrOk2roP5siimQM&ved=0ahUKEwiwiNm7hbuRAxUzklYBHWakKDMQ4dUDCBE&uact=5&oq=supabase+backend+demo&gs_lp=Egxnd3Mtd2l6LXNlcnAiFXN1cGFiYXNlIGJhY2tlbmQgZGVtbzIFECEYoAEyBRAhGKABMgUQIRigATIFECEYnwVI_wpQ9QFY4QZwAXgBkAEAmAF8oAGkBKoBAzEuNLgBA8gBAPgBAZgCBqACvATCAgoQABiwAxjWBBhHwgITEC4YgAQYsAMY0QMYQxjHARiKBcICCxAAGIAEGJECGIoFwgIFEAAYgATCAgYQABgWGB7CAgsQABiABBiGAxiKBcICCBAAGIAEGKIEwgIFEAAY7wWYAwCIBgGQBgmSBwMxLjWgB8MYsgcDMC41uAezBMIHBTAuNS4xyAcQgAgA&sclient=gws-wiz-serp#fpstate=ive&vld=cid:480a7a6f,vid:kyphLGnSz6Q,st:0)
+
+# Sign Up
+
+1. Create with a real email
+2. Password must be at least 8 characters (at least: 1 uppercase, 1 lowercase and 1 special character) - e.g., Aa1!0000
+3. Confirm New Password
+4. Access youe email (which you have registered above), then confirm that email
+5. Access the login page and sign in with the created account
+
+# Sign In
+
+1. Sign in with a real email
+2. Password must be at least 8 characters (at least: 1 uppercase, 1 lowercase and 1 special character) - e.g., Aa1!0000
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
@@ -71,7 +88,3 @@ export default defineConfig([
   },
 ]);
 ```
-
-# Reference
-
-- [Supabase Backend](https://www.google.com/search?q=supabase+backend+demo&sca_esv=7e4dfe0eab4f43b7&rlz=1C1KNTJ_viVN1027VN1027&ei=Hpw9abCBNrOk2roP5siimQM&ved=0ahUKEwiwiNm7hbuRAxUzklYBHWakKDMQ4dUDCBE&uact=5&oq=supabase+backend+demo&gs_lp=Egxnd3Mtd2l6LXNlcnAiFXN1cGFiYXNlIGJhY2tlbmQgZGVtbzIFECEYoAEyBRAhGKABMgUQIRigATIFECEYnwVI_wpQ9QFY4QZwAXgBkAEAmAF8oAGkBKoBAzEuNLgBA8gBAPgBAZgCBqACvATCAgoQABiwAxjWBBhHwgITEC4YgAQYsAMY0QMYQxjHARiKBcICCxAAGIAEGJECGIoFwgIFEAAYgATCAgYQABgWGB7CAgsQABiABBiGAxiKBcICCBAAGIAEGKIEwgIFEAAY7wWYAwCIBgGQBgmSBwMxLjWgB8MYsgcDMC41uAezBMIHBTAuNS4xyAcQgAgA&sclient=gws-wiz-serp#fpstate=ive&vld=cid:480a7a6f,vid:kyphLGnSz6Q,st:0)
