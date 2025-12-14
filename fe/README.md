@@ -7,13 +7,36 @@
 1. Create with a real email
 2. Password must be at least 8 characters (at least: 1 uppercase, 1 lowercase and 1 special character) - e.g., Aa1!0000
 3. Confirm New Password
-4. Access youe email (which you have registered above), then confirm that email
+4. Access your email (which you have registered above), then confirm that email
 5. Access the login page and sign in with the created account
 
 # Sign In
 
 1. Sign in with a real email
 2. Password must be at least 8 characters (at least: 1 uppercase, 1 lowercase and 1 special character) - e.g., Aa1!0000
+
+# Supabase Setup
+
+Insall the supabase package for JS/TS: `npm i @supabase/supabase-js`
+
+```js
+import { createClient } from "@supabase/supabase-js";
+
+const supabaseUrl = import.meta.env.VITE_SUPABASE_PROJECT_URL;
+const supabaseKey = import.meta.env.VITE_SUPABASE_API_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+export default supabase;
+```
+
+.env
+
+```
+VITE_SUPABASE_PROJECT_URL=
+VITE_SUPABASE_API_KEY=
+```
+
+**Notes: The env variables must be started with VITE keyword.**
 
 # React + TypeScript + Vite
 
