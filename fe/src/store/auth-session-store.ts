@@ -1,68 +1,41 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import supabase from "@/query/supabaseClient";
+import type { Session } from "@supabase/supabase-js";
 
 interface SessionAuthState {
+  session: Session | null;
+  user: Session["user"] | null;
   isAuthenticated: boolean;
-  isCheckingSession: boolean;
+  isLoading: boolean;
 }
 
 interface SessionAuthActions {
-  setAuthenticated: (value: boolean) => void;
-  checkSession: () => Promise<void>;
-  logout: () => Promise<void>;
+  setSession: (session: Session | null) => void;
+  signOut: () => Promise<void>;
 }
 
 export const useSessionAuthStore = create<
   SessionAuthState & SessionAuthActions
->()(
-  persist(
-    (set) => ({
-      isAuthenticated: false,
-      isCheckingSession: true,
+>((set) => ({
+  session: null,
+  user: null,
+  isAuthenticated: false,
+  isLoading: true,
 
-      setAuthenticated: (value) =>
-        set({ isAuthenticated: value, isCheckingSession: false }),
-
-      checkSession: async () => {
-        try {
-          /**
-           * Call a protected endpoint
-           * If cookie is valid → 200
-           * If not → 401
-           */
-          await fetch("/api/auth/me", {
-            credentials: "include",
-          });
-
-          set({ isAuthenticated: true });
-        } catch {
-          set({ isAuthenticated: false });
-        } finally {
-          set({ isCheckingSession: false });
-        }
-      },
-
-      logout: async () => {
-        try {
-          await fetch("/api/auth/logout", {
-            method: "POST",
-            credentials: "include",
-          });
-        } finally {
-          set({
-            isAuthenticated: false,
-            isCheckingSession: false,
-          });
-        }
-      },
+  setSession: (session) =>
+    set({
+      session,
+      user: session?.user ?? null,
+      isAuthenticated: !!session,
+      isLoading: false,
     }),
-    {
-      name: "session-auth-storage",
 
-      // Only persist auth boolean, not transient flags
-      partialize: (state) => ({
-        isAuthenticated: state.isAuthenticated,
-      }),
-    }
-  )
-);
+  signOut: async () => {
+    await supabase.auth.signOut();
+    set({
+      session: null,
+      user: null,
+      isAuthenticated: false,
+    });
+  },
+}));

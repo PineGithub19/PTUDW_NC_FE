@@ -1,8 +1,7 @@
 import { redirect, type LoaderFunctionArgs } from "react-router-dom";
 import { useAuthStore } from "@/store/auth-store.ts";
-import { useSessionAuthStore } from "@/store/auth-session-store";
-import apiClientSession from "@/query/apiClientSession";
 import { ENDPOINTS } from "./endpoints";
+import supabase from "@/query/supabaseClient";
 
 export async function ProtectedRoute({ request }: LoaderFunctionArgs) {
   const token = useAuthStore.getState().token;
@@ -27,36 +26,14 @@ export async function ProtectedRoute({ request }: LoaderFunctionArgs) {
   return redirect(`/auth/sign-in?from=${url.pathname}`);
 }
 
-export async function ProtectedRouteWithSession({
-  request,
-}: LoaderFunctionArgs) {
-  const { isAuthenticated, setAuthenticated } = useSessionAuthStore.getState();
+export async function ProtectedRouteWithSession() {
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
 
-  /**
-   * 1️⃣ Fast-path: already authenticated in memory
-   */
-  if (isAuthenticated) {
-    return null;
+  if (!session) {
+    return redirect(ENDPOINTS.login);
   }
 
-  /**
-   * 2️⃣ Ask backend if session cookie is valid
-   * (HTTP-only cookie is sent automatically)
-   */
-  try {
-    await apiClientSession.get(ENDPOINTS.checkAuthSession);
-
-    setAuthenticated(true);
-    return null;
-  } catch (error) {
-    /**
-     * 3️⃣ Session invalid → redirect
-     */
-    const url = new URL(request.url);
-    setAuthenticated(false);
-
-    const endpoint = ENDPOINTS.login + `?from=${url.pathname}`;
-
-    return redirect(endpoint);
-  }
+  return null;
 }

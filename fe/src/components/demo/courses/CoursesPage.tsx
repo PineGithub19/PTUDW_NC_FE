@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CourseItem from "./CourseItem";
 import {
   useFetchCourses,
@@ -6,9 +6,12 @@ import {
   useFetchLevels,
 } from "@/hooks/demo/course-hooks";
 import { useState, useMemo } from "react";
-import CustomPagination from "../custom-ui/custom-pagination";
+import CustomPagination from "../../custom-ui/custom-pagination";
+import { useSignOut } from "@/hooks/auth-session-hooks";
 
 function CoursesPage() {
+  const navigate = useNavigate();
+
   const ITEMS_PER_PAGE = 7;
   const [page, setPage] = useState(0);
 
@@ -40,6 +43,17 @@ function CoursesPage() {
 
   const totalPages = Math.ceil((courses?.count ?? 0) / ITEMS_PER_PAGE);
 
+  // Logout
+  const { mutate } = useSignOut();
+
+  const handleLogout = () => {
+    mutate(undefined, {
+      onSuccess: () => {
+        navigate("/demo/auth/login");
+      },
+    });
+  };
+
   return (
     <div className="container mx-auto px-4 py-8 max-w-6xl">
       <div className="flex justify-between items-center mb-8">
@@ -52,13 +66,21 @@ function CoursesPage() {
             Browse and explore our collection of courses
           </p>
         </div>
-        <Link
-          to="/demo/courses/create"
-          className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg"
-        >
-          <i className="fas fa-plus-circle"></i>
-          <span>Create New Course</span>
-        </Link>
+        <div className="flex items-center justify-end">
+          <button
+            className="text-md font-bold text-white bg-black px-4 py-3 rounded-md mr-4"
+            onClick={handleLogout}
+          >
+            Logout
+          </button>
+          <Link
+            to="/demo/courses/create"
+            className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg"
+          >
+            <i className="fas fa-plus-circle"></i>
+            <span>Create New Course</span>
+          </Link>
+        </div>
       </div>
 
       {isLoading && (

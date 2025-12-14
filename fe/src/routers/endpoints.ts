@@ -1,14 +1,14 @@
 export const ENDPOINTS = {
   // demo
-  getCourseDetails: (courseId: string) => `/courses/${courseId}`,
-  getCourses: `/courses`,
-  createCourse: `/courses/create`,
+  // getCourseDetails: (courseId: string) => `/courses/${courseId}`,
+  // getCourses: `/courses`,
+  // createCourse: `/courses/create`,
 
   // auth - jwt
-  login: `/auth/login`,
-  register: `/auth/register`,
-  logout: `/auth/logout`,
+  login: `/demo/auth/login`,
+  register: `demo/auth/register`,
+  logout: `demo/auth/logout`,
 
   // auth - session
-  checkAuthSession: `/auth/me`,
+  // checkAuthSession: `/auth/me`,
 };
